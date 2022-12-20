@@ -1,0 +1,49 @@
+﻿<h4>Add Student Deatils</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="studenteForm" novalidate class="needs-validation">
+            <div class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Name</label>
+                <input type="text" class="form-control" id="name" required />
+                <span  class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <input type="email" class="form-control" id="email" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" onclick="submitStudent()">Submit</button>
+            </div>
+            <input type="button" value="Submit" id="btnSubmit" />
+        </form>
+         <p>
+          <textarea id="txtJsonReturned" rows="10" cols="150"></textarea>
+         </p>
+    </div>
+</div>
+
+ <script type="text/javascript">
+    function submitStudent() {
+        var data = {
+                Name: document.getElementById("name").value,
+                Email: document.getElementById("email").value
+            }
+        console.log(JSON.stringify(data));
+        $.ajax({
+            type: 'POST',
+            url: '/Home/CreateStudent',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            success: function (result) {
+                alert("ok")
+                $("#txtJsonReturned").val(JSON.stringify(result));
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+            }
+        })
+    }
+</script>
